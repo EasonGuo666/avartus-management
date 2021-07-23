@@ -1,0 +1,115 @@
+@baseURL = https://avartus.cmu.edu.au
+@token = eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXIxQGF2YXJ0dXMuY29tIiwibmFtZSI6IkpvZSBVc2VyMSIsImZpbmdlcnByaW50IjoiMTdRMUJMWWZxZUo1UHQyZDN0Z3JKcDYxU3RFakdYVHJjRyIsInRydXN0X2xldmVsIjoiMSIsIm9yZ2FuaXphdGlvbiI6IkF2YXJ0dXMgTHRkLiIsIm9yZ2FuaXphdGlvbl9pZCI6IjEiLCJ0ZW5hbnRfdXJsIjoiaHR0cHM6Ly9jbXVhLmF2YXJ0dXMuY29tIiwiZXhwIjoxNjMxNzAyMDAyLCJpc3MiOiJBdmFydHVzIn0.qBZfhj60sCanP-37PIoWuI-RDaWGfu7TnVEdDjZjbbjSzfKIFuTtMvgAI8pcVZF4sE8FhbB_DPTsavoler3XBg
+
+POST {{baseURL}}/api/v1/graph HTTP/1.1
+Authorization: JWT {{token}}
+
+// service - return all microservices info from the graph database
+// location, profile, action, switcher, tv,
+// camera, position, projector, vc, pc, dsp
+// node - query for orphaned nodes
+// cloud
+{
+	"args" : ["query", "name", "tv"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/graph HTTP/1.1
+Authorization: JWT {{token}}
+
+{
+	"args" : ["query", "uuid", "45922866c3f76fe5c12142125d1bbb9efbdcae5eb39f1075fdbe3dac8bde3209"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/graph HTTP/1.1
+Authorization: JWT {{token}}
+
+{
+	"args" : ["query", "uuid", "45922866c3f76fe5c12142125d1bbb9efbdcae5eb39f1075fdbe3dac8bde3209", "manager"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+// in seconds (admin)
+{
+	"args" : ["heartbeat_interval", "120"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+{
+	"args" : ["offline"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+// trigger send the lastest configurations to manager uuid (devices, locations, profiles) to manager
+// (admin API)
+{
+	"args" : ["lifetime", "tv", "60"]
+}
+###
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+// change ctrltus lifetime(live value), decides how long the factory
+// will hold a particular device's instance in the factory map
+// (admin)
+{
+	"args" : ["lifetime", "tv", "60"]
+}
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+// read microservices' config
+// (user)
+{
+	"args" : ["service_config", "read", "0f6c3ee5855270f6143a6db79aba6d3699babf949820c304dcaea403187c485b"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+// retrive all keys from badger (20 keys max) of the manager uuid
+{
+	"args" : ["badger", "45922866c3f76fe5c12142125d1bbb9efbdcae5eb39f1075fdbe3dac8bde3209", "iterator"]
+}
+
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+// retrive key-value pair(s) from badger of the manager uuid
+{
+	"args" : ["badger", "45922866c3f76fe5c12142125d1bbb9efbdcae5eb39f1075fdbe3dac8bde3209", "read", "ningke"]
+}
+
+###
+
+###
+
+POST {{baseURL}}/api/v1/cloud HTTP/1.1
+Authorization: JWT {{token}}
+
+// retrive key-value pair(s) from badger of the manager uuid
+{
+	"args" : ["badger", "45922866c3f76fe5c12142125d1bbb9efbdcae5eb39f1075fdbe3dac8bde3209", "add", "ningke", "123"]
+}
+
+###
